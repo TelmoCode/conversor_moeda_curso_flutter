@@ -38,15 +38,22 @@ class _HomeState extends State<Home> {
   double euro;
 
   void _realChanged(String text) {
-    print(text);
+    double real = double.parse(text);
+    dolarControler.text = (real/dolar).toStringAsFixed(2);
+    euroControler.text = (real/euro).toStringAsFixed(2);
+
   }
 
   void _dolarChanged(String text) {
-    print(text);
+    double dolar = double.parse(text);
+    realControler.text = (dolar*this.dolar).toStringAsFixed(2);
+    euroControler.text = (dolar*this.dolar/euro).toStringAsFixed(2);
   }
 
   void _euroChanged(String text) {
-    print(text);
+    double euro = double.parse(text);
+    realControler.text = (euro*this.euro).toStringAsFixed(2);
+    dolarControler.text = (euro*this.euro/dolar).toStringAsFixed(2);
   }
 
   @override
@@ -90,11 +97,14 @@ class _HomeState extends State<Home> {
                         children: [
                           Icon(Icons.monetization_on,
                               size: 150.0, color: Colors.amber),
-                          BuildTextField("Reais", "R\$  ", realControler, _realChanged),
+                          BuildTextField(
+                              "Reais", "R\$  ", realControler, _realChanged),
                           Divider(),
-                          BuildTextField("Dolares", "US\$  ", dolarControler, _dolarChanged),
+                          BuildTextField("Dolares", "US\$  ", dolarControler,
+                              _dolarChanged),
                           Divider(),
-                          BuildTextField("Euros", "€  ", euroControler, _euroChanged),
+                          BuildTextField(
+                              "Euros", "€  ", euroControler, _euroChanged),
                         ],
                       ),
                     );
@@ -118,5 +128,4 @@ Widget BuildTextField(String label, String prefix,
     onChanged: changed,
     keyboardType: TextInputType.number,
   );
-  
 }
